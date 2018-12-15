@@ -1,0 +1,18 @@
+const math = require('mathjs');
+const updatePopulationAndResult = require('../helper/updatePopulationAndResult');
+const objectFunction = require('../helper/objectFunction');
+const objectFunctionResult = require('../helper/objectFunctionResult');
+const compareResult = require('../helper/compareResult');
+let populations = math.randomInt([10, 2], 0, 10);
+let populations2 = math.randomInt([10, 2], 0, 10);
+console.log('populations', populations);
+console.log('populations2', populations2);
+let result1 = objectFunctionResult(populations, objectFunction);
+let result2 = objectFunctionResult(populations2, objectFunction);
+console.log('result1', result1);
+console.log('result2', result2);
+let betterResult = compareResult(result1, result2);
+console.log('betterResult', betterResult);
+updatePopulationAndResult(populations, populations2, result1, result2, betterResult);
+console.log('result1', result1);
+console.log('populations', populations);

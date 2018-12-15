@@ -2,9 +2,17 @@ const math = require('mathjs');
 const jaya = require('../helper/jaya');
 const getBest = require('../helper/getBest');
 const getWorst = require('../helper/getWorst');
+const objectFunction = require('../helper/objectFunction');
+const objectFunctionResult = require('../helper/objectFunctionResult');
 
-const population = math.randomInt([20, 2], 0, 10);
-let { best, indexOfBest } = getBest(population);
-let { worst, indexOfWorst } = getWorst(population); 
-let tempPop = jaya(population, best, worst);
+const population = math.zeros([20, 2]);
+let newPopulations = population.map((population, i) => {
+    return [i, i];
+})
+console.log('newpopulations', newPopulations);
+console.log('populations', population);
+let result = objectFunctionResult(newPopulations, objectFunction);
+let { best, indexOfBest } = getBest(result);
+let { worst, indexOfWorst } = getWorst(result); 
+let tempPop = jaya(newPopulations, newPopulations[indexOfBest], newPopulations[indexOfWorst]);
 console.log('tempPop', tempPop);

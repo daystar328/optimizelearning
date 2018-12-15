@@ -13,21 +13,26 @@ const JayaAlgorithm = function(populations, iter, terminate) {
     let sameBestCounter = 0;
     let iteration = 0;
     for(let i=0; i<iter; i++) {
-        let tempPopulation = jaya(populations, indexOfBest, indexOfWorst);
+        let tempPopulation = jaya(populations, populations[indexOfBest], populations[indexOfWorst]);
         let tempResults = objectFunctionResult(tempPopulation, objectFunction);
         let betterResultIndex = compareResult(results, tempResults);
         updatePopulationAndResult(populations, tempPopulation, results, tempResults, betterResultIndex);
         let newBest = getBest(results).best;
         if(newBest === best) {
             sameBestCounter = sameBestCounter + 1;
-            console.log('best', best);
+        } else {
+            sameBestCounter = 0;
         }
         if(sameBestCounter === terminate) {
+            console.log(populations[indexOfBest])
             iteration = i;
+            console.log('best', best);
             break;
         }
         best = getBest(results).best;
         worst = getWorst(results).worst;
+        indexOfBest = getBest(results).indexOfBest;
+        indexOfWorst = getWorst(results).indexOfWorst;
     }
     return {
         best,
